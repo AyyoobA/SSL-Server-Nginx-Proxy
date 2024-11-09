@@ -1,0 +1,32 @@
+services:
+  backend-1:
+    image: node-server-proxy-3080
+    container_name: server_3080
+    ports: 
+      - "3080:3080"
+    networks:
+      - my-bridge-network
+    depends_on:
+      - nginx-proxy
+      
+  backend-2:
+    image: node-server-proxy-3081
+    container_name: server_3081
+    ports: 
+      - "3081:3081"
+    networks:
+      - my-bridge-network
+    depends_on:
+      - nginx-proxy
+  
+  nginx-proxy:
+    image: nginx-proxy
+    container_name: nginx-proxy
+    ports: 
+      - "3000:3000"
+    networks:
+      - my-bridge-network
+
+networks:
+  my-bridge-network:
+    external: true
